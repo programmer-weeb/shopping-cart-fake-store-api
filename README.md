@@ -2,6 +2,8 @@
 
 A mock shopping cart application built with React, Vite, and Tailwind CSS. It fetches product data from the [Fake Store API](https://fakestoreapi.com/) and features a global state management system for the cart.
 
+**[🔗 Live Demo](https://shopping-cart-fake-store-api.vercel.app/)**
+
 ## Features
 
 - **Product Listing**: Browse products fetched dynamically.

@@ -4,7 +4,12 @@ import { useFetchProducts } from "../../CustomHookToFetchFromFakeAPI";
 
 export default function Shop() {
   const { products, loading, error } = useFetchProducts();
-  const { addToCart } = useCart();
+  const { addToCart, cartItems } = useCart();
+
+  const productQuantityInCart = (prodcutId) => {
+    const cartItem = cartItems.find((item) => item.id === prodcutId);
+    return cartItem ? cartItem.quantity : 0;
+  };
 
   if (loading) {
     return (
@@ -68,7 +73,9 @@ export default function Shop() {
                     className="w-full py-3 px-4 bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-300 active:scale-95"
                   >
                     <Plus className="h-5 w-5" />
-                    Add to Cart
+                    {productQuantityInCart(product.id) === 0
+                      ? "Add to Cart"
+                      : `Add more - ${productQuantityInCart(product.id)}`}
                   </button>
                 </div>
               </div>

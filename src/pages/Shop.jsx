@@ -1,31 +1,10 @@
-import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { Plus, ShoppingCart, Loader2 } from "lucide-react";
+import { useFetchProducts } from "../../CustomHookToFetchFromFakeAPI";
 
 export default function Shop() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { products, loading, error } = useFetchProducts();
   const { addToCart } = useCart();
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("https://fakestoreapi.com/products");
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
-        const data = await response.json();
-        setProducts(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
 
   if (loading) {
     return (
@@ -82,7 +61,7 @@ export default function Shop() {
                 >
                   {product.title}
                 </h2>
-                
+
                 <div className="mt-auto pt-6">
                   <button
                     onClick={() => addToCart(product)}
